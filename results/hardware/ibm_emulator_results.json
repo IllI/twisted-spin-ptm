@@ -1,0 +1,13 @@
+{
+  "chi_t": 3.1315926535897933,
+  "N": 4,
+  "F_theory": 0.5016708055209723,
+  "F_noisy_mean": 0.501611262021879,
+  "F_estimated_mean": 0.5222073154063325,
+  "F_estimated_std": 0.005692678558845314,
+  "dominant_stratum": "BOUNDARY",
+  "stratum_counts": {
+    "BOUNDARY": 20
+  },
+  "n_trials": 20
+}

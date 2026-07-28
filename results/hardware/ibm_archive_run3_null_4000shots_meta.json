@@ -1,0 +1,23 @@
+{
+  "job_id": "d81tqhntjchs73bnccvg",
+  "label": "run3_null_4000shots",
+  "backend": "ibm_marrakesh",
+  "archived_at": "2026-05-13T02:18:12.235332Z",
+  "metrics": {
+    "caller": "qiskit_ibm_runtime~sampler.py",
+    "qiskit_version": "qiskit_ibm_runtime-0.47.0,qiskit-2.4.1*,qiskit_aer-0.17.2",
+    "timestamps": {
+      "created": "2026-05-13T02:09:10.298457Z",
+      "finished": "2026-05-13T02:09:17.940923Z",
+      "running": "2026-05-13T02:09:13.143139Z"
+    },
+    "bss": {
+      "seconds": 2
+    },
+    "usage": {
+      "quantum_seconds": 2,
+      "seconds": 2,
+      "status": "complete"
+    }
+  }
+}

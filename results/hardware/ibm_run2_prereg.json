@@ -1,0 +1,45 @@
+{
+  "run": 2,
+  "rationale": "Robustness/invariance: fixed layout, angle sweep, heavy null, readout mitigation",
+  "backend": "ibm_marrakesh",
+  "physical_chain": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "optimization_level": 0,
+  "routing_method": "none",
+  "chi_ts_pi_units": [
+    0.0,
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875,
+    1.0
+  ],
+  "shot_allocation": {
+    "0.000pi": 500,
+    "0.125pi": 500,
+    "0.250pi": 500,
+    "0.375pi": 500,
+    "0.500pi": 500,
+    "0.625pi": 500,
+    "0.750pi": 500,
+    "0.875pi": 500,
+    "1.000pi": 4000
+  },
+  "null_shots": 4000,
+  "mitigation": "readout_matrix (not multiplicative scaling)",
+  "submission_time": "2026-05-13T01:50:36.186412Z",
+  "predictions": {
+    "functional_form": "T_xx(chi_t) = cos^{N-2}(chi_t_eff/2)/2",
+    "null": "T_xx(pi) in [-0.014, 0.014] after mitigation (2000-shot sigma=0.011)",
+    "ordering": "T_xx(0) > T_xx(chi_t*) > 0 > T_xx(pi)",
+    "mirror_symmetry": "T_xx(-chi_t) = T_xx(chi_t)"
+  },
+  "cal_job_id": "d81thqfoha1c73bkrpug"
+}

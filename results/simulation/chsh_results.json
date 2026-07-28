@@ -1,0 +1,102 @@
+[
+  {
+    "N": 2,
+    "chi_t_opt": 2.985,
+    "C": 0.9969364081502495,
+    "S_max_numerical": 2.824097875000455,
+    "S_max_analytic": 2.824097875000455,
+    "consistent": true,
+    "violates_classical": true,
+    "cirelson_fraction": 0.9984693790736702
+  },
+  {
+    "N": 4,
+    "chi_t_opt": 1.091,
+    "C": 0.30894410542942013,
+    "S_max_numerical": 1.7097359497103397,
+    "S_max_analytic": 2.0932715641116273,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6044829420393015
+  },
+  {
+    "N": 6,
+    "chi_t_opt": 0.713,
+    "C": 0.19210811590658286,
+    "S_max_numerical": 1.6598113601444895,
+    "S_max_analytic": 2.0365711656577847,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.5868319341243177
+  },
+  {
+    "N": 8,
+    "chi_t_opt": 0.523,
+    "C": 0.13934368942836645,
+    "S_max_numerical": 1.6906974621688966,
+    "S_max_analytic": 2.019323316146782,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.5977518202172566
+  },
+  {
+    "N": 10,
+    "chi_t_opt": 0.429,
+    "C": 0.10936401522692449,
+    "S_max_numerical": 1.706135152126505,
+    "S_max_analytic": 2.011924936797151,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6032098678446967
+  },
+  {
+    "N": 12,
+    "chi_t_opt": 0.334,
+    "C": 0.08961592569502008,
+    "S_max_numerical": 1.7659605923673085,
+    "S_max_analytic": 2.008014954265207,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6243613550855681
+  },
+  {
+    "N": 16,
+    "chi_t_opt": 0.239,
+    "C": 0.06571816846798262,
+    "S_max_numerical": 1.8234689185397697,
+    "S_max_analytic": 2.004314224533455,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6446936187911856
+  },
+  {
+    "N": 20,
+    "chi_t_opt": 0.239,
+    "C": 0.05134065209484916,
+    "S_max_numerical": 1.7724034463503557,
+    "S_max_analytic": 2.002634127900076,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6266392479563718
+  },
+  {
+    "N": 24,
+    "chi_t_opt": 0.145,
+    "C": 0.04225716854054646,
+    "S_max_numerical": 1.8927860293596437,
+    "S_max_analytic": 2.001784871851183,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6692009183476818
+  },
+  {
+    "N": 32,
+    "chi_t_opt": 0.145,
+    "C": 0.03169426432563074,
+    "S_max_numerical": 1.853480411639886,
+    "S_max_analytic": 2.0010042742494507,
+    "consistent": false,
+    "violates_classical": false,
+    "cirelson_fraction": 0.6553042839334984
+  }
+]

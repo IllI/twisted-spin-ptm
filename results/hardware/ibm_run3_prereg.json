@@ -1,0 +1,41 @@
+{
+  "run": 3,
+  "rationale": "Topology-controlled replication: disjoint layout, same protocol",
+  "layout_A": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "layout_B": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "backend": "ibm_marrakesh",
+  "optimization_level": 0,
+  "chi_ts_pi_units": [
+    0.0,
+    0.125,
+    0.25,
+    0.375,
+    0.5,
+    0.625,
+    0.75,
+    0.875,
+    1.0
+  ],
+  "shots_sweep": 500,
+  "shots_null": 4000,
+  "submission_time": "2026-05-13T02:09:05.836139Z",
+  "predictions": {
+    "functional_form": "T_xx = A_B * cos^2(chi_t/2)/2  with different A_B from A_A=0.909",
+    "null": "T_xx(pi) compatible with 0",
+    "R2": "R^2 > 0.95",
+    "layout_independence": "Same phase structure, same null, different A"
+  },
+  "cal_job_id": "d81tqfvoha1c73bks33g",
+  "sweep_job_id": "d81tqhfoha1c73bks370",
+  "null_job_id": "d81tqhntjchs73bnccvg"
+}

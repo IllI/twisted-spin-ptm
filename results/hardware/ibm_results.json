@@ -1,0 +1,26 @@
+{
+  "backend": "ibm_marrakesh",
+  "submission_time": "2026-05-12T22:46:07.485919Z",
+  "completion_time": "2026-05-12T22:46:19.467411Z",
+  "calibration_job_id": "d81qrbegbeec73akuheg",
+  "ptm_job_id": "d81qrcvtjchs73bn8rqg",
+  "readout_errors": {
+    "q1_prep0": 0.002,
+    "q1_prep1": 0.986,
+    "q2_prep0": 0.0,
+    "q2_prep1": 0.996
+  },
+  "calibration_factor": 1.582278481012658,
+  "T_xx_raw": {
+    "chi_t~0": 0.31600000000000006,
+    "chi_t_star": 0.27399999999999997,
+    "chi_t_pi": -0.038000000000000034
+  },
+  "T_xx_calibrated": {
+    "chi_t~0": 0.5,
+    "chi_t_star": 0.4335443037974682,
+    "chi_t_pi": -0.060126582278481056
+  },
+  "separation_sigma": 12.467072543524116,
+  "passed": true
+}

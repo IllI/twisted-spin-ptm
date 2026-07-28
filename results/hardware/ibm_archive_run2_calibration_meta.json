@@ -1,0 +1,24 @@
+{
+  "job_id": "d81thqfoha1c73bkrpug",
+  "label": "run2_calibration",
+  "backend": "ibm_marrakesh",
+  "status": "DONE",
+  "metrics": {
+    "caller": "qiskit_ibm_runtime~sampler.py",
+    "qiskit_version": "qiskit_ibm_runtime-0.47.0,qiskit-2.4.1*,qiskit_aer-0.17.2",
+    "timestamps": {
+      "created": "2026-05-13T01:50:33.6584Z",
+      "finished": "2026-05-13T01:50:39.911828Z",
+      "running": "2026-05-13T01:50:34.883614Z"
+    },
+    "bss": {
+      "seconds": 2
+    },
+    "usage": {
+      "quantum_seconds": 2,
+      "seconds": 2,
+      "status": "complete"
+    }
+  },
+  "archived_at": "2026-05-13T01:58:23.733563Z"
+}

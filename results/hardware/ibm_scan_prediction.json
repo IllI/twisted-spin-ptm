@@ -1,0 +1,270 @@
+[
+  {
+    "chi_t": 0.1,
+    "N": 4,
+    "F_theory": 0.6828892498809735,
+    "F_noisy_mean": 0.6756735936282351,
+    "F_estimated_mean": 0.666889286233243,
+    "F_estimated_std": 0.004220502315216973,
+    "dominant_stratum": "CLASSICAL",
+    "stratum_counts": {
+      "CLASSICAL": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 0.260083823873147,
+    "N": 4,
+    "F_theory": 0.7067242950276217,
+    "F_noisy_mean": 0.6986671462232165,
+    "F_estimated_mean": 0.6876676695469507,
+    "F_estimated_std": 0.006437415742976339,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 14,
+      "CLASSICAL": 1
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 0.420167647746294,
+    "N": 4,
+    "F_theory": 0.7274039680519514,
+    "F_noisy_mean": 0.7186266371915235,
+    "F_estimated_mean": 0.7056383521369514,
+    "F_estimated_std": 0.005362652551199932,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 0.580251471619441,
+    "N": 4,
+    "F_theory": 0.7443994452632833,
+    "F_noisy_mean": 0.7350416309633038,
+    "F_estimated_mean": 0.72394496603165,
+    "F_estimated_std": 0.004570773634639784,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 0.740335295492588,
+    "N": 4,
+    "F_theory": 0.7572761157771429,
+    "F_noisy_mean": 0.7474923378036543,
+    "F_estimated_mean": 0.7355828542214542,
+    "F_estimated_std": 0.006220429422131468,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 0.900419119365735,
+    "N": 4,
+    "F_theory": 0.7657046954497823,
+    "F_noisy_mean": 0.7556603470335572,
+    "F_estimated_mean": 0.7415258550773669,
+    "F_estimated_std": 0.0071579091250549365,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.0605029432388822,
+    "N": 4,
+    "F_theory": 0.7694696473815403,
+    "F_noisy_mean": 0.7593367683427873,
+    "F_estimated_mean": 0.7471157782855573,
+    "F_estimated_std": 0.008146412767777885,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.2205867671120292,
+    "N": 4,
+    "F_theory": 0.7684746936586689,
+    "F_noisy_mean": 0.7584275727758364,
+    "F_estimated_mean": 0.7459538431607863,
+    "F_estimated_std": 0.007982081932007454,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.3806705909851762,
+    "N": 4,
+    "F_theory": 0.762745277386538,
+    "F_noisy_mean": 0.7529559966776763,
+    "F_estimated_mean": 0.7401789176285957,
+    "F_estimated_std": 0.008352760327516135,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 13,
+      "ISOTROPIC": 2
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.5407544148583232,
+    "N": 4,
+    "F_theory": 0.7524279120547422,
+    "F_noisy_mean": 0.7430619470437673,
+    "F_estimated_mean": 0.7313615194234248,
+    "F_estimated_std": 0.008498244494546748,
+    "dominant_stratum": "ISOTROPIC",
+    "stratum_counts": {
+      "ISOTROPIC": 12,
+      "TRANSPORT": 3
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.7008382387314702,
+    "N": 4,
+    "F_theory": 0.7377864348722368,
+    "F_noisy_mean": 0.7289984234272815,
+    "F_estimated_mean": 0.7178592887446441,
+    "F_estimated_std": 0.008909780675276273,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "TRANSPORT": 8,
+      "ISOTROPIC": 6,
+      "CLASSICAL": 1
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 1.8609220626046172,
+    "N": 4,
+    "F_theory": 0.7191952598827807,
+    "F_noisy_mean": 0.7111250478646642,
+    "F_estimated_mean": 0.6999179228105046,
+    "F_estimated_std": 0.008819426347695716,
+    "dominant_stratum": "TRANSPORT",
+    "stratum_counts": {
+      "ISOTROPIC": 4,
+      "TRANSPORT": 6,
+      "CLASSICAL": 5
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.0210058864777642,
+    "N": 4,
+    "F_theory": 0.697129803393025,
+    "F_noisy_mean": 0.6898988682419911,
+    "F_estimated_mean": 0.6789184638724655,
+    "F_estimated_std": 0.008293383075673283,
+    "dominant_stratum": "CLASSICAL",
+    "stratum_counts": {
+      "CLASSICAL": 14,
+      "BOUNDARY": 1
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.181089710350911,
+    "N": 4,
+    "F_theory": 0.6721543265556348,
+    "F_noisy_mean": 0.6658626702500223,
+    "F_estimated_mean": 0.6536486247491854,
+    "F_estimated_std": 0.007174949823754348,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.3411735342240583,
+    "N": 4,
+    "F_theory": 0.6449075059987207,
+    "F_noisy_mean": 0.639631096783033,
+    "F_estimated_mean": 0.627870258874965,
+    "F_estimated_std": 0.007056485070467647,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.5012573580972055,
+    "N": 4,
+    "F_theory": 0.6160861014916099,
+    "F_noisy_mean": 0.6118749296962953,
+    "F_estimated_mean": 0.6006870363573592,
+    "F_estimated_std": 0.006717902143291987,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.6613411819703523,
+    "N": 4,
+    "F_theory": 0.5864271382998408,
+    "F_noisy_mean": 0.5833039358183304,
+    "F_estimated_mean": 0.5735132824332588,
+    "F_estimated_std": 0.006483182464858081,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.821425005843499,
+    "N": 4,
+    "F_theory": 0.5566890598648709,
+    "F_noisy_mean": 0.5546487158464846,
+    "F_estimated_mean": 0.5498286852806729,
+    "F_estimated_std": 0.006257295204705791,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 2.9815088297166463,
+    "N": 4,
+    "F_theory": 0.5276323327749868,
+    "F_noisy_mean": 0.5266420207450858,
+    "F_estimated_mean": 0.5287046890574697,
+    "F_estimated_std": 0.004449483105433149,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  },
+  {
+    "chi_t": 3.141592653589793,
+    "N": 4,
+    "F_theory": 0.5,
+    "F_noisy_mean": 0.5000161421204691,
+    "F_estimated_mean": 0.5246899213190481,
+    "F_estimated_std": 0.00444166454216185,
+    "dominant_stratum": "BOUNDARY",
+    "stratum_counts": {
+      "BOUNDARY": 15
+    },
+    "n_trials": 15
+  }
+]
