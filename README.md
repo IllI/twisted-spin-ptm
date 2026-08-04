@@ -10,6 +10,13 @@ two-body observable. It is **not** a demonstration of quantum teleportation, a
 teleportation-advantage claim, or a hardware-confirmed theorem. The full CAN/CANNOT
 claim list is locked in `docs/EXPERIMENT_ARCHIVE_OAT_IBM.md` §135 references.
 
+**How we got here.** `docs/DISCOVERY_NARRATIVE.md` is a readable account of the
+research path — falsified formulas, a wrong circuit caught before it cost real
+hardware time, a retracted "scrambling" claim, and the internal null (`χt = π`)
+that anchored everything else. It's a condensed, public-facing companion to the
+3,000+ line internal research log; start there if you want the story before the
+tables.
+
 ---
 
 ## The chain of evidence
@@ -79,11 +86,29 @@ archived result JSONs record the actual device used per run (some runs executed 
 CPU). Device provenance should always be taken from the `devices` field of the
 result JSON, not the filename.
 
+## Not yet run
+
+`hardware/ibm_run4_crossdevice.py` — a prepared, dry-run-verified cross-device
+replication of the Run 3 protocol on a second IBM Heron chip (`ibm_fez` or
+`ibm_kingston`), generalized to arbitrary boundary-pair N. Fixes a layout bug
+found during a sister-branch hardware run (`initial_layout` is now actually
+passed to the transpiler, and verified post-hoc from the job's own compiled
+circuit, not just assumed). Aer smoke-tested at N=4 (clean, R²>0.97) and N=6
+(fails decisively under simulated noise — 18-CX circuit too deep for this gate
+design; not submitted to hardware as-is). Run with `--dry` first.
+
 ## Provenance
 
 - Backend: `ibm_marrakesh` (156-qubit Heron), IBM Open Plan.
 - All job IDs in `results/hardware/*jobids*` and `ibm_job_ids.txt`; server-side
   timestamps in the result/meta JSONs are authoritative for chronology.
-- Compute for simulation stages supported by Google's TPU Research Cloud (TRC).
+- **Compute for the simulation phase (exact boundary-state core, MPS automaton,
+  dephasing sweeps, the full PTM/recovery-geometry search documented in
+  `docs/DISCOVERY_NARRATIVE.md`) was supported by Google's TPU Research Cloud
+  (TRC)** — an initial one-month grant (2026-04-21 to 2026-05-21) extended a
+  further month on the strength of the results, without which the tensor-network
+  scale-up to N≥64 and the statistical-rigor passes (Gate 2 bootstrap CIs, Haar
+  convergence, seed-independence) would not have been feasible. The IBM hardware
+  stage used no TRC resources.
 - The views expressed are those of the author and do not reflect the official
-  policy or position of IBM or the IBM Quantum team.
+  policy or position of IBM, the IBM Quantum team, or Google.
