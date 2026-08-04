@@ -40,6 +40,7 @@ import argparse
 import datetime
 import json
 import os
+import time
 from pathlib import Path
 
 import numpy as np
@@ -49,6 +50,70 @@ CHI_TS = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8]) * np.pi / 8
 SHOTS_SWEEP = 500
 SHOTS_NULL = 4000
 SHOTS_CAL = 500
+
+# --- Resilience: checkpoint job IDs to disk so a dropped connection (laptop
+# sleep, wifi blip, DNS hiccup) doesn't strand an already-submitted job with
+# no way to resume it short of re-running the whole multi-stage pipeline from
+# scratch. Learned the hard way: an overnight run died on a DNS resolution
+# failure with a job still sitting, live, in IBM's queue -- costing nothing,
+# but with no way for the script to find it again. ---
+
+CHECKPOINT_DIR = Path(".run4_checkpoints")
+
+TRANSIENT_MARKERS = (
+    "NameResolutionError", "getaddrinfo", "ConnectionError", "MaxRetryError",
+    "Connection aborted", "RemoteDisconnected", "ConnectionResetError",
+    "Timeout", "TimeoutError",
+)
+
+
+def checkpoint_path(backend_name: str, n: int) -> Path:
+    CHECKPOINT_DIR.mkdir(exist_ok=True)
+    return CHECKPOINT_DIR / f"{backend_name}_n{n}.json"
+
+
+def load_checkpoint(backend_name: str, n: int) -> dict:
+    path = checkpoint_path(backend_name, n)
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+    return {}
+
+
+def save_checkpoint(backend_name: str, n: int, stage: str, job_id: str) -> None:
+    path = checkpoint_path(backend_name, n)
+    data = load_checkpoint(backend_name, n)
+    data[stage] = job_id
+    path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+
+
+def clear_checkpoint(backend_name: str, n: int) -> None:
+    path = checkpoint_path(backend_name, n)
+    if path.exists():
+        path.unlink()
+
+
+def wait_with_retry(job, max_wait_hours: float = 8.0):
+    """Poll job.result(), surviving transient network errors by retrying
+    with backoff instead of crashing. Does NOT retry genuine terminal states
+    (job cancelled/failed on IBM's side) -- those are real information and
+    should surface immediately, not be silently retried forever."""
+    deadline = time.time() + max_wait_hours * 3600
+    backoff = 10.0
+    while True:
+        try:
+            return job.result()
+        except Exception as exc:
+            message = f"{type(exc).__name__}: {exc}"
+            transient = any(marker in message for marker in TRANSIENT_MARKERS)
+            if not transient or time.time() > deadline:
+                raise
+            print(
+                f"    [network hiccup: {type(exc).__name__}] retrying in {backoff:.0f}s "
+                f"(job is still safely queued on IBM's side)...",
+                flush=True,
+            )
+            time.sleep(backoff)
+            backoff = min(backoff * 1.5, 300.0)
 
 
 def cross_pairs(n: int) -> list[tuple[int, int]]:
@@ -129,7 +194,7 @@ class DryBackend:
         self.coupling_map = CouplingMap.from_line(self.num_qubits)
         self._sim = AerSimulator(noise_model=nm)
 
-    def run(self, circuits: list[QuantumCircuit], shots: int, layout: list[int]):
+    def run(self, circuits: list[QuantumCircuit], shots: int, layout: list[int], stage: str | None = None):
         tqc = [
             transpile(c, self._sim, optimization_level=0, initial_layout=layout)
             for c in circuits
@@ -139,7 +204,7 @@ class DryBackend:
 
 
 class HardwareBackend:
-    def __init__(self, backend_name: str) -> None:
+    def __init__(self, backend_name: str, n: int) -> None:
         from qiskit_ibm_runtime import QiskitRuntimeService
 
         token = os.environ.get("QISKIT_IBM_TOKEN")
@@ -156,18 +221,41 @@ class HardwareBackend:
         self.num_qubits = self._backend.num_qubits
         self.name = self._backend.name
         self.coupling_map = self._backend.coupling_map
+        self._checkpoint_key = (self.name, n)
 
-    def run(self, circuits: list[QuantumCircuit], shots: int, layout: list[int]):
+    def run(self, circuits: list[QuantumCircuit], shots: int, layout: list[int], stage: str | None = None):
         from qiskit_ibm_runtime import SamplerV2 as Sampler
+        from qiskit_ibm_runtime.exceptions import RuntimeInvalidStateError
 
         tqc = [
             transpile(c, backend=self._backend, optimization_level=0, initial_layout=layout)
             for c in circuits
         ]
-        sampler = Sampler(mode=self._backend)
-        job = sampler.run([(c,) for c in tqc], shots=shots)
-        print(f"    job {job.job_id()} submitted; waiting...", flush=True)
-        result = job.result()
+
+        def submit_fresh():
+            sampler = Sampler(mode=self._backend)
+            new_job = sampler.run([(c,) for c in tqc], shots=shots)
+            print(f"    job {new_job.job_id()} submitted; waiting...", flush=True)
+            if stage is not None:
+                save_checkpoint(*self._checkpoint_key, stage, new_job.job_id())
+            return new_job
+
+        existing_job_id = load_checkpoint(*self._checkpoint_key).get(stage) if stage else None
+        if existing_job_id:
+            print(f"    resuming previously submitted job {existing_job_id} (stage '{stage}')...", flush=True)
+            job = self._service.job(existing_job_id)
+        else:
+            job = submit_fresh()
+
+        try:
+            result = wait_with_retry(job)
+        except RuntimeInvalidStateError:
+            if not existing_job_id:
+                raise
+            print(f"    checkpointed job {existing_job_id} is dead (cancelled/failed) -- resubmitting fresh...", flush=True)
+            job = submit_fresh()
+            result = wait_with_retry(job)
+
         out = []
         for i in range(len(circuits)):
             creg = tqc[i].cregs[0].name
@@ -215,6 +303,10 @@ def main() -> None:
     parser.add_argument("--backend", required=True, help="e.g. ibm_fez, ibm_kingston")
     parser.add_argument("--n-qubits", type=int, default=4, help="4 (paper-matching) or 6 (new scaling point)")
     parser.add_argument("--out-dir", type=Path, default=None)
+    parser.add_argument(
+        "--fresh", action="store_true",
+        help="ignore any checkpointed job IDs from a previous interrupted run and resubmit from scratch",
+    )
     args = parser.parse_args()
     if args.n_qubits % 2 or args.n_qubits < 4:
         raise SystemExit("--n-qubits must be an even integer >= 4")
@@ -225,12 +317,21 @@ def main() -> None:
     out_dir = args.out_dir or Path(f"results_run4_{args.backend}_n{n}")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    backend = DryBackend() if args.dry else HardwareBackend(args.backend)
+    if args.fresh and not args.dry:
+        clear_checkpoint(args.backend, n)
+
+    backend = DryBackend() if args.dry else HardwareBackend(args.backend, n)
     layout = find_chain(backend.coupling_map, backend.num_qubits, n)
     print(f"ibm_run4_crossdevice  backend={backend.name}  N={n}  dry={args.dry}", flush=True)
     print(f"  cross pairs: {pairs}  (theta = chi_t / {len(pairs)})", flush=True)
     print(f"  boundary qubits (logical): {bl}, {br}", flush=True)
     print(f"  physical layout: {layout}", flush=True)
+    if not args.dry:
+        print(
+            f"  checkpoint file: {checkpoint_path(backend.name, n)} "
+            f"(delete or pass --fresh to force a clean resubmit)",
+            flush=True,
+        )
 
     timestamp = datetime.datetime.utcnow().isoformat() + "Z"
     prereg = {
@@ -262,7 +363,7 @@ def main() -> None:
     cal_specs = [(q, s) for q in (bl, br) for s in (0, 1)]
     cal_circuits = [cal_circuit(q, s, n) for q, s in cal_specs]
     print("\n--- JOB: CALIBRATION ---", flush=True)
-    cal_counts, cal_tqc, cal_jid = backend.run(cal_circuits, SHOTS_CAL, layout)
+    cal_counts, cal_tqc, cal_jid = backend.run(cal_circuits, SHOTS_CAL, layout, stage="calibration")
     calib = {}
     for (q, s), counts in zip(cal_specs, cal_counts):
         total = sum(counts.values())
@@ -280,9 +381,9 @@ def main() -> None:
     # -- Sweep + null --
     circuits = [oat_circuit(c, n) for c in CHI_TS]
     print(f"\n--- JOB: SWEEP ({len(circuits) - 1} pts) ---", flush=True)
-    sweep_counts, sweep_tqc, sweep_jid = backend.run(circuits[:-1], SHOTS_SWEEP, layout)
+    sweep_counts, sweep_tqc, sweep_jid = backend.run(circuits[:-1], SHOTS_SWEEP, layout, stage="sweep")
     print("\n--- JOB: NULL (chi_t=pi) ---", flush=True)
-    null_counts_list, null_tqc, null_jid = backend.run([circuits[-1]], SHOTS_NULL, layout)
+    null_counts_list, null_tqc, null_jid = backend.run([circuits[-1]], SHOTS_NULL, layout, stage="null")
     null_counts = null_counts_list[0]
 
     layout_check_sweep = verify_layout(sweep_tqc[len(sweep_tqc) // 2], layout)
@@ -356,6 +457,8 @@ def main() -> None:
     }
     results_path = out_dir / "run4_results.json"
     results_path.write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+    if not args.dry:
+        clear_checkpoint(args.backend, n)
     print(f"\n[DONE] results: {results_path}", flush=True)
 
 
