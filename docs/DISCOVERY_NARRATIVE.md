@@ -340,6 +340,47 @@ That is a smaller claim than the exciting version. It is also one that
 doesn't need to be walked back later, which — after a project defined by
 walking things back — was worth treating as an achievement in its own right.
 
+## Act XII — Two last dead ends, one of them a decision not to measure
+
+Months later, a fourth hardware run was built: the same protocol on a second
+Heron processor, to upgrade "layout-independent" to "device-independent." The
+script got written, hardened, dry-run verified. It was never executed.
+
+Two things killed it, and both are worth recording.
+
+The first was a genuine physical bound, found for free. The script had been
+generalized to arbitrary N, so the obvious question was whether the
+protocol extends to six qubits — nine cross-half ZZ pairs instead of four,
+and a real test of the *N*-dependence in `cos^{N-2}(χt/2)` rather than one
+curve at a single N. Under the calibrated noise model it failed
+unambiguously: R² = −2.0, and the χt = π null — the anchor the entire
+program is built on — landed at 21σ instead of zero. Eighteen CX gates is
+simply too deep for this decomposition to survive decoherence. That is a
+real limit on the protocol, established at zero shot cost by the same
+dry-run-first habit that caught three wrong circuits earlier, and it says
+the N-scaling experiment needs a shallower construction rather than more
+shots.
+
+The second was quieter and, in its way, harder: the N = 4 cross-device run
+was descoped after three attempts sat unserved in a free-tier queue for
+hours. Not because the queue defeated it — no quota was consumed, and it
+could have been left running indefinitely at no cost — but because a look at
+what it would actually buy came up short. One sentence, appended to a claim
+that does not rest on it, duplicating cross-device evidence the sister
+Page–Wootters branch had already produced on the same hardware family, and
+almost certainly reproducing A ≈ 0.90 and R² ≈ 0.98 one more time. Run 3 had
+already answered the sharper version of that question — and answered it
+*informatively*, with the depth-versus-attenuation inversion that pointed at
+qubit-specific decoherence.
+
+Knowing when an experiment is confirmatory rather than informative, and
+declining it, belongs in the same category as the other corrections in this
+document. The script survives in the repository, correct and ready, marked as
+a deliberate non-run rather than an unfinished task. That distinction is the
+whole point: this record contains things that were wrong and got fixed,
+things that were right and got kept — and at least one thing that was fine
+and simply wasn't worth doing.
+
 ---
 
 ## What actually survived, in one table
@@ -358,6 +399,8 @@ walking things back — was worth treating as an achievement in its own right.
 | Hardware Run 1 (12.5σ, 3 points) | Confirmed, with two named artifacts later explained and fixed |
 | Hardware Run 2 (R² = 0.986, 9 points) | Confirmed; both Run 1 artifacts resolved |
 | Hardware Run 3 (R² = 0.976, disjoint layout) | Confirmed; layout-independence established |
+| N = 6 extension (18 CX) viable on hardware | **Falsified in simulation** — R² = −2.0, null at 21σ; too deep for this decomposition |
+| Run 4 cross-device replication | **Descoped** — confirmatory, not informative; script kept, deliberately not run |
 | "Theorem 3 hardware-confirmed" | Retracted in favor of narrower, defensible language |
 
 Every falsified row above earns its place in this table for the same reason

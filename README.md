@@ -86,16 +86,36 @@ archived result JSONs record the actual device used per run (some runs executed 
 CPU). Device provenance should always be taken from the `devices` field of the
 result JSON, not the filename.
 
-## Not yet run
+## Prepared but deliberately not run
 
-`hardware/ibm_run4_crossdevice.py` — a prepared, dry-run-verified cross-device
-replication of the Run 3 protocol on a second IBM Heron chip (`ibm_fez` or
-`ibm_kingston`), generalized to arbitrary boundary-pair N. Fixes a layout bug
-found during a sister-branch hardware run (`initial_layout` is now actually
-passed to the transpiler, and verified post-hoc from the job's own compiled
-circuit, not just assumed). Aer smoke-tested at N=4 (clean, R²>0.97) and N=6
-(fails decisively under simulated noise — 18-CX circuit too deep for this gate
-design; not submitted to hardware as-is). Run with `--dry` first.
+`hardware/ibm_run4_crossdevice.py` is a complete, dry-run-verified cross-device
+replication of the Run 3 protocol on a second Heron r2 chip, generalized to
+arbitrary boundary-pair N. It fixes a layout bug found during a sister-branch
+hardware run (`initial_layout` is now actually passed to the transpiler and
+verified post-hoc from the job's own compiled circuit, not assumed), and it
+checkpoints job IDs so a dropped connection can't strand a submitted job.
+
+**It was not executed, by decision rather than by omission.** Three attempts
+were queued on `ibm_fez` and `ibm_kingston` and abandoned after multi-hour
+waits (free-tier Open Plan queueing; no quota was consumed — pending jobs are
+not billed). On review, the run was descoped: it would have added one
+sentence — "also recovered on a second device" — to a claim that does not
+rest on it. The paper's claim is that a specific analytic observable was
+recovered with R²=0.986 and a null at 0.4σ, already established by three runs
+with pre-registration, archived raw counts, and a disjoint-layout replication.
+Cross-device consistency for this hardware family is separately evidenced in
+the sister repository, where the Page–Wootters protocol ran on both
+`ibm_marrakesh` and `ibm_fez`.
+
+The script is kept because it is correct and cheap to run if a future session
+has a quiet queue — not because a gap in the evidence depends on it.
+
+**The N=6 dry run is a result in its own right.** Extending the protocol to
+six qubits (nine cross-half ZZ pairs, 18 CX gates) fails decisively under the
+calibrated noise model: R² = −2.0, with the χt=π null landing at 21σ instead
+of ~0. The circuit is too deep for this gate decomposition to survive
+decoherence. That bound was established at zero shot cost, and it says the
+N-scaling test needs a fundamentally shallower construction — not more shots.
 
 ## Provenance
 
