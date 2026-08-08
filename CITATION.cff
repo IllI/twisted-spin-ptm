@@ -1,0 +1,71 @@
+cff-version: 1.2.0
+title: >-
+  Hardware Recovery of the Analytic Pauli-Transfer-Matrix Structure of
+  One-Axis-Twisting Boundary Channels
+message: >-
+  If you use this software, data, or the experimental protocols
+  in this repository, please cite it as below.
+type: software
+authors:
+  - family-names: "O'Néill"
+    given-names: "Caoimhín"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"   # add before release
+repository-code: "https://github.com/IllI/twisted-spin-ptm"
+abstract: >-
+  Theory, exact simulation, pre-registration, and three runs on IBM Quantum
+  hardware measuring the predicted Pauli-transfer-matrix element
+  T_xx = A cos^(N-2)(chi t / 2) of the one-axis-twisting boundary-pair
+  channel, including its exact null at chi t = pi. Three identities are
+  proved from the closed-form boundary density matrix (T_zz = 0, T_yy = 0,
+  and the T_xx form), with the corollary that phase-only local corrections
+  cannot exceed the classical fidelity bound. Hardware results: a 12.5-sigma
+  signed ordering across three points, a nine-point sweep recovering the
+  functional form at R^2 = 0.986 with the internal null at 0.4 sigma, and a
+  disjoint-layout replication at R^2 = 0.976. Raw shot counts, calibration
+  matrices, and job IDs are archived for every run; the entire analysis
+  reproduces from counts upward. Includes a narrative account of the research
+  path (docs/DISCOVERY_NARRATIVE.md) recording the falsified conjectures,
+  retracted claims, and dry-run-caught circuit errors alongside the results
+  that survived.
+keywords:
+  - quantum information
+  - one-axis twisting
+  - spin squeezing
+  - Pauli transfer matrix
+  - quantum channels
+  - entanglement
+  - IBM Quantum
+  - superconducting qubits
+  - tensor networks
+  - pre-registration
+  - reproducibility
+  - state-space models
+  - D-LinOSS
+license: MIT
+version: 1.0.0
+date-released: "2026-08-07"
+references:
+  - type: article
+    authors:
+      - family-names: Wootters
+        given-names: "William K."
+    title: "Entanglement of formation of an arbitrary state of two qubits"
+    journal: "Physical Review Letters"
+    volume: 80
+    issue: 10
+    start: 2245
+    year: 1998
+    doi: "10.1103/PhysRevLett.80.2245"
+  - type: article
+    authors:
+      - family-names: Kitagawa
+        given-names: Masahiro
+      - family-names: Ueda
+        given-names: Masahito
+    title: "Squeezed spin states"
+    journal: "Physical Review A"
+    volume: 47
+    issue: 6
+    start: 5138
+    year: 1993
+    doi: "10.1103/PhysRevA.47.5138"
