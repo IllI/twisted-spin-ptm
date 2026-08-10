@@ -17,6 +17,15 @@ that anchored everything else. It's a condensed, public-facing companion to the
 3,000+ line internal research log; start there if you want the story before the
 tables.
 
+**The simulation phase that made this possible was funded by Google's TPU
+Research Cloud** (`v6e`, one month from 2026-04-21, extended a second month on
+the strength of the results). That is not an acknowledgement formality: the
+tensor-network scale-up to `N ≥ 64`, the dephasing-threshold sweeps, the
+bootstrap/Haar/seed-independence rigor passes, and the entire
+recovery-geometry search that told us *which* observable was worth a
+10-minute-per-month hardware budget all ran on TRC. **The hardware phase
+measured one number. The accelerator phase decided which number.**
+
 ---
 
 ## The chain of evidence
@@ -56,6 +65,52 @@ counts upward.
 - **Run 2 → Run 3:** full replication on a disjoint qubit chain, answering the
   transpiler/routing-artifact objection. Depth decreased (76→64) while attenuation
   stayed within CI — noise is qubit-dominated, not depth-dominated.
+
+## What the failures bought
+
+Nearly every numeric claim in this repository was wrong at least once before it
+was right, and **the wrong version is usually what said where to look next.**
+Recorded compactly here; the full account is in `docs/DISCOVERY_NARRATIVE.md`.
+
+| failure | what it bought |
+|---|---|
+| Headline fidelity formula **falsified** after being the paper's opening line | forced the move to the closed-form boundary density matrix — the analytic spine everything now rests on |
+| Concurrence scaling exponent corrected **three times** | the discipline of re-deriving rather than re-fitting |
+| The "12.5σ" Run-1 result was measuring **a different angle than intended** | caught in review → made Run 2 rigorous enough to publish (9 points, mirror circuits, bootstrap CIs) |
+| A "scrambling" claim, **retracted** | scope narrowed to what the analytics actually support |
+| Critical-exponent detour: `β ≈ 0.87` → **revised to `β = 1.00`** | the fit window had mixed two physical regimes; walking it back is why the remaining claims hold |
+| Wrong circuit found in the **dry run** (Rz-angle transpilation defect) | `optimization_level=0` on all hardware runs — caught before it cost hardware time |
+| **N=6 dry run fails decisively**: R² = −2.0, null at 21σ | a real scaling bound established at **zero shot cost** — the N-scaling test needs a shallower construction, not more shots |
+| Cross-device Run 4: three attempts **abandoned** in queue | descoped by decision, script kept; the claim never rested on it |
+| Entanglement **not identifiable** from PTM anisotropy alone | resolved by `V_Q` over Haar-random settings — the same wall the sister program hit, and the origin of a shared standard (below) |
+
+**The internal null did more work than any positive result.** At `χt = π` the
+theory says six independent observables must vanish exactly. They do — across
+dozens of runs, every seed, every optimizer restart, every SU(2)
+parameterization. That is what licensed trusting a single hardware run: if a
+null is that reliable in simulation, hardware reproducing the *shape* around it
+is meaningful even under device noise.
+
+## The shared method
+
+This repository and its sister,
+[relational-time-ibm-quantum](https://github.com/IllI/relational-time-ibm-quantum),
+were run as two independent programs and hit **the same epistemic wall from
+opposite directions**:
+
+> **A single measurement configuration does not certify quantum structure;
+> measurement diversity does.**
+
+Here it appeared as *entanglement is not identifiable from PTM anisotropy
+alone*, resolved by `V_Q` over Haar-random settings. There it appeared as
+*no single local product-basis distribution can certify clock–system
+entanglement*, resolved by a multi-setting fidelity witness. Neither program
+anticipated the other's version. That two independent lines converged on it is
+the strongest methodological claim either makes, and the sister repository
+documents the resulting protocol — pre-registration, statevector assertions
+before backend contact, self-built adversaries, per-run provenance — in a form
+meant to be reused. It is deliberately cheap: both programs together ran on a
+free-tier quantum account and a TPU grant.
 
 ## Repository layout
 
@@ -125,10 +180,14 @@ N-scaling test needs a fundamentally shallower construction — not more shots.
 - **Compute for the simulation phase (exact boundary-state core, MPS automaton,
   dephasing sweeps, the full PTM/recovery-geometry search documented in
   `docs/DISCOVERY_NARRATIVE.md`) was supported by Google's TPU Research Cloud
-  (TRC)** — an initial one-month grant (2026-04-21 to 2026-05-21) extended a
-  further month on the strength of the results, without which the tensor-network
-  scale-up to N≥64 and the statistical-rigor passes (Gate 2 bootstrap CIs, Haar
-  convergence, seed-independence) would not have been feasible. The IBM hardware
-  stage used no TRC resources.
+  (TRC)** — `v6e` instances, an initial one-month grant from 2026-04-21
+  extended a further month on the strength of the results. Without it the
+  tensor-network scale-up to `N ≥ 64` and the statistical-rigor passes (Gate 2
+  bootstrap CIs, Haar convergence, seed-independence) would not have been
+  feasible, and the `N = 6` scaling bound — a genuine negative result — could
+  not have been established at zero hardware cost. The IBM hardware stage used
+  no TRC resources. The same grant window funded the sister program's synthetic
+  phase; see its README for the accelerator-as-hypothesis-generator argument in
+  full.
 - The views expressed are those of the author and do not reflect the official
   policy or position of IBM, the IBM Quantum team, or Google.
