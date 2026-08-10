@@ -7,8 +7,8 @@ message: >-
   in this repository, please cite it as below.
 type: software
 authors:
-  - family-names: "O'Néill"
-    given-names: "Caoimhín"
+  - family-names: "O'Neill"
+    given-names: "Kevin"
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # add before release
 repository-code: "https://github.com/IllI/twisted-spin-ptm"
 abstract: >-
