@@ -9,7 +9,7 @@
   ],
   "license": "mit",
   "access_right": "open",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "language": "eng",
   "keywords": [
     "quantum information",
@@ -37,7 +37,7 @@
     },
     {
       "identifier": "https://github.com/IllI/relational-time-ibm-quantum",
-      "relation": "isRelatedTo",
+      "relation": "references",
       "resource_type": "software",
       "scheme": "url"
     },
