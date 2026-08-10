@@ -1,5 +1,11 @@
 # Hardware Recovery of the Analytic PTM Structure of One-Axis-Twisting Boundary Channels
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21878783.svg)](https://doi.org/10.5281/zenodo.21878783)
+
+*The DOI above is the concept DOI — it always resolves to the latest archived
+version. Cite this one, not a version-pinned link, so the citation stays
+current if the repository is ever re-released.*
+
 Companion repository for Paper 1: theory, exact simulation, pre-registration, and
 three runs on IBM Quantum hardware (`ibm_marrakesh`) measuring the predicted
 Pauli-transfer-matrix element `T_xx = A·cos^(N-2)(χt/2)` of the OAT boundary-pair

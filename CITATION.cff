@@ -11,6 +11,7 @@ authors:
     given-names: "Kevin"
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # add before release
 repository-code: "https://github.com/IllI/twisted-spin-ptm"
+doi: 10.5281/zenodo.21878783
 abstract: >-
   Theory, exact simulation, pre-registration, and three runs on IBM Quantum
   hardware measuring the predicted Pauli-transfer-matrix element
