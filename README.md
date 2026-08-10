@@ -17,14 +17,15 @@ that anchored everything else. It's a condensed, public-facing companion to the
 3,000+ line internal research log; start there if you want the story before the
 tables.
 
-**The simulation phase that made this possible was funded by Google's TPU
-Research Cloud** (`v6e`, one month from 2026-04-21, extended a second month on
-the strength of the results). That is not an acknowledgement formality: the
-tensor-network scale-up to `N ≥ 64`, the dephasing-threshold sweeps, the
-bootstrap/Haar/seed-independence rigor passes, and the entire
-recovery-geometry search that told us *which* observable was worth a
-10-minute-per-month hardware budget all ran on TRC. **The hardware phase
-measured one number. The accelerator phase decided which number.**
+**Research supported with Cloud TPUs from Google's TPU Research Cloud (TRC).**
+The TRC allocation supported the simulation and hypothesis-development phase;
+the IBM Quantum hardware experiments used separate IBM Open Plan access. What
+that compute bought is not incidental — the tensor-network scale-up to
+`N ≥ 64`, the dephasing-threshold sweeps, the bootstrap/Haar/seed-independence
+passes, and the recovery-geometry search that identified *which* observable was
+worth a 10-minute-per-month hardware budget all ran on it. **The hardware phase
+measured one number; the simulation phase decided which number.** Allocation
+details are in *Computational resources* below.
 
 ---
 
@@ -34,12 +35,12 @@ measured one number. The accelerator phase decided which number.**
 |---|---|---|
 | 1. Analytic theory | `theory/ptm_analytic.py` | `T_zz = 0`, `T_yy = 0`, `T_xx = cos^(N-2)(χt/2)` proved from the closed-form boundary density matrix |
 | 2. Exact simulation | `simulation/jila_oat_exact_tpu.py` + v1–v4 | Closed-form ρ₂ validated vs brute force; MPS automaton scales to N≥64; Lindblad dephasing threshold mapped |
-| 3. Null controls | `simulation/chsh_bell_test.py` | No CHSH violation for N≥4 (S=1.71) despite F>2/3 — advantage without Bell nonlocality |
+| 3. Null controls | `simulation/chsh_bell_test.py` | No CHSH violation for N≥4 (S=1.71) despite the simulated teleportation fidelity `F` exceeding the classical 2/3 benchmark — i.e. the fidelity benchmark is passed without Bell nonlocality |
 | 4. Noise forecast | `simulation/p2_hardware_noise.py` | Predicted hardware attenuation envelope before submission |
 | 5. Pre-registration | `results/hardware/ibm_prereg.json` (+ run2/run3) | Numerical predictions with σ and explicit pass criterion, written before job submission |
-| 6. Hardware Run 1 | `results/hardware/ibm_results.json` | 3-point PTM: signed ordering at **12.5σ** |
+| 6. Hardware Run 1 *(pilot)* | `results/hardware/ibm_results.json` | 3-point PTM, signed ordering at 12.5σ — **diagnostic, not confirmatory**: review showed it measured a different angle than intended (see *What the failures bought*). Superseded by Runs 2–3 |
 | 7. Hardware Run 2 | `ibm_run2_fit.json`, `ibm_run2_bootstrap.json` | 9-point sweep, layout A `[0,1,2,3]`: **R²=0.986**, A=0.909, null at **+0.43σ** (4000 shots) |
-| 8. Hardware Run 3 | `ibm_run3_results.json` | Disjoint layout B `[4,5,6,7]`: **R²=0.976**, A=0.903, null at **−0.12σ** — layout-independent |
+| 8. Hardware Run 3 | `ibm_run3_results.json` | **Replication on a disjoint layout** B `[4,5,6,7]`: **R²=0.976**, A=0.903, null at **−0.12σ** |
 
 Raw shot counts, calibration matrices, and IBM job IDs for every run are archived
 under `results/hardware/ibm_archive_*` — the entire analysis is reproducible from
@@ -64,7 +65,9 @@ counts upward.
   bootstrap CIs added.
 - **Run 2 → Run 3:** full replication on a disjoint qubit chain, answering the
   transpiler/routing-artifact objection. Depth decreased (76→64) while attenuation
-  stayed within CI — noise is qubit-dominated, not depth-dominated.
+  stayed within CI — consistent with qubit-dependent noise dominating over a
+  depth difference of this size. (One disjoint layout is a replication, not a
+  demonstration of layout independence in general.)
 
 ## What the failures bought
 
@@ -177,17 +180,55 @@ N-scaling test needs a fundamentally shallower construction — not more shots.
 - Backend: `ibm_marrakesh` (156-qubit Heron), IBM Open Plan.
 - All job IDs in `results/hardware/*jobids*` and `ibm_job_ids.txt`; server-side
   timestamps in the result/meta JSONs are authoritative for chronology.
-- **Compute for the simulation phase (exact boundary-state core, MPS automaton,
-  dephasing sweeps, the full PTM/recovery-geometry search documented in
-  `docs/DISCOVERY_NARRATIVE.md`) was supported by Google's TPU Research Cloud
-  (TRC)** — `v6e` instances, an initial one-month grant from 2026-04-21
-  extended a further month on the strength of the results. Without it the
-  tensor-network scale-up to `N ≥ 64` and the statistical-rigor passes (Gate 2
-  bootstrap CIs, Haar convergence, seed-independence) would not have been
-  feasible, and the `N = 6` scaling bound — a genuine negative result — could
-  not have been established at zero hardware cost. The IBM hardware stage used
-  no TRC resources. The same grant window funded the sister program's synthetic
-  phase; see its README for the accelerator-as-hypothesis-generator argument in
-  full.
+- **Quantum hardware:** IBM Quantum Open Plan access, `ibm_marrakesh`
+  (156-qubit Heron r2).
+
+## Computational resources
+
+Research supported with Cloud TPUs from Google's TPU Research Cloud (TRC).
+
+- **Allocation:** `v6e` instances; an initial one-month allocation from
+  2026-04-21, extended by one further month.
+- **Workloads:** exact boundary-state core, MPS automaton (`N ≥ 64`), Lindblad
+  dephasing sweeps and the `Γ*(N)` threshold, Gate-2 bootstrap CIs, Haar
+  convergence and seed-independence passes, and the PTM/recovery-geometry
+  search documented in `docs/DISCOVERY_NARRATIVE.md`. The `N = 6` scaling bound
+  — a negative result — was also established here, at zero hardware cost.
+- **Separation of stages:** the IBM hardware stage used no TRC resources; the
+  TRC stage used no quantum hardware.
+- The same allocation window supported the sister program's synthetic phase;
+  see its README for the accelerator-as-hypothesis-generator argument in full.
+
+## References
+
+1. Kitagawa, M. & Ueda, M. *Squeezed spin states.* Phys. Rev. A **47**, 5138 (1993).
+   — one-axis twisting.
+2. Ma, J., Wang, X., Sun, C. P. & Nori, F. *Quantum spin squeezing.* Phys. Rep.
+   **509**, 89 (2011).
+3. Chuang, I. L. & Nielsen, M. A. *Prescription for experimental determination of
+   the dynamics of a quantum black box.* J. Mod. Opt. **44**, 2455 (1997).
+   — process/transfer-matrix tomography.
+4. Nielsen, M. A. & Chuang, I. L. *Quantum Computation and Quantum Information*
+   (Cambridge University Press, 2010). — PTM conventions, teleportation, the
+   classical 2/3 fidelity benchmark.
+5. Schollwöck, U. *The density-matrix renormalization group in the age of matrix
+   product states.* Ann. Phys. **326**, 96 (2011). — MPS methods.
+6. Lindblad, G. *On the generators of quantum dynamical semigroups.* Commun.
+   Math. Phys. **48**, 119 (1976).
+7. Clauser, J. F., Horne, M. A., Shimony, A. & Holt, R. A. *Proposed experiment
+   to test local hidden-variable theories.* Phys. Rev. Lett. **23**, 880 (1969).
+   — CHSH.
+8. Javanainen, J. & Yoo, S. M. and subsequent JILA Sr-87 clock literature; the
+   single-particle dephasing rate used here is anchored to
+   [arXiv:2505.06444](https://arxiv.org/abs/2505.06444).
+9. Qiskit contributors. *Qiskit: An Open-source Framework for Quantum Computing*
+   (2023). — transpilation, `optimization_level`, SamplerV2 primitives.
+10. IBM Quantum. *Heron r2 processor documentation* (2026).
+11. Companion program: *Measuring the Quantum Signature of Relational Time on
+    Superconducting Hardware*,
+    <https://github.com/IllI/relational-time-ibm-quantum>.
+
+*(Bibliography is indicative for the repository record; the manuscript version
+will carry full DOIs and page ranges.)*
 - The views expressed are those of the author and do not reflect the official
   policy or position of IBM, the IBM Quantum team, or Google.
