@@ -100,6 +100,42 @@ parameterization. That is what licensed trusting a single hardware run: if a
 null is that reliable in simulation, hardware reproducing the *shape* around it
 is meaningful even under device noise.
 
+## Companion result: one law, two exact nulls
+
+This repository and its sibling
+[relational-time-ibm-quantum](https://github.com/IllI/relational-time-ibm-quantum)
+ran as independent programmes and turn out to measure the **same function**:
+coherence surviving as a product of half-angle state overlaps, one factor for
+every party that has acquired distinguishing information. `cos(θ/2)` is the
+overlap between two qubit states separated by Bloch angle `θ`.
+
+- **Here:** `T_xx = cos(χt/2)^(N−2)` — the exponent counts the `N−2` bulk
+  spins, each learning partial *which-state* information about the boundary
+  pair. Measured against **coupling angle**.
+- **There:** `ρ_C[t,t'] = cos((t−t')·π/d)` — the same half-angle overlap,
+  measured against **time**; and `cos(μ/2)^p` against environment coupling.
+
+The identification is exact. At `d = 8` adjacent clock records overlap at
+`0.923880`, and `cos(π/4 / 2) = 0.923880`. Entanglement decay and temporal
+distinguishability are the same bookkeeping, read in different variables.
+
+**Then the two internal nulls settle what it certifies.** Each was predicted,
+pre-registered, and confirmed — these are the controls that validated each
+apparatus:
+
+```
+This paper, at χt = π        Companion, at d = 2
+T_xx        = 0.000000       witness TVD  = 0.000000
+rho_2       = I/4 exactly    state        = Bell pair
+concurrence = 0.000000       entanglement = 1.0000 ebits
+-> SEPARABLE                 -> MAXIMALLY ENTANGLED
+```
+
+**The same observable reads exactly zero on a separable state and on a
+maximally entangled one.** That is a measurement, not an argument, and neither
+repository can make it alone. Full statement:
+[`docs/COMPANION_RESULT.md`](docs/COMPANION_RESULT.md).
+
 ## The shared method
 
 This repository and its sister,
