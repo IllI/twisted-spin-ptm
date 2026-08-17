@@ -100,40 +100,41 @@ parameterization. That is what licensed trusting a single hardware run: if a
 null is that reliable in simulation, hardware reproducing the *shape* around it
 is meaningful even under device noise.
 
-## Companion result: one law, two exact nulls
+## Companion result: one law, and a witness that runs backwards
 
 This repository and its sibling
 [relational-time-ibm-quantum](https://github.com/IllI/relational-time-ibm-quantum)
-ran as independent programmes and turn out to measure the **same function**:
-coherence surviving as a product of half-angle state overlaps, one factor for
-every party that has acquired distinguishing information. `cos(θ/2)` is the
-overlap between two qubit states separated by Bloch angle `θ`.
+ran as independent programmes and measure the **same law**: coherence surviving
+as a product of half-angle state overlaps, one factor for every party that has
+acquired distinguishing information. `cos(θ/2)` is the overlap between two
+qubit states separated by Bloch angle `θ`.
 
 - **Here:** `T_xx = cos(χt/2)^(N−2)` — the exponent counts the `N−2` bulk
   spins, each learning partial *which-state* information about the boundary
   pair. Measured against **coupling angle**.
 - **There:** `ρ_C[t,t'] = cos((t−t')·π/d)` — the same half-angle overlap,
-  measured against **time**; and `cos(μ/2)^p` against environment coupling.
+  measured against **time**.
 
-The identification is exact. At `d = 8` adjacent clock records overlap at
-`0.923880`, and `cos(π/4 / 2) = 0.923880`. Entanglement decay and temporal
-distinguishability are the same bookkeeping, read in different variables.
+Exact, not analogical: at `d = 8` adjacent clock records overlap at `0.923880`,
+and `cos(π/4 / 2) = 0.923880`.
 
-**Then the two internal nulls settle what it certifies.** Each was predicted,
-pre-registered, and confirmed — these are the controls that validated each
-apparatus:
+**The consequence is sharper than a shared functional form.** The sibling's
+headline observable reads a *marginal*, and for a bipartite pure state the
+marginal entropy **is** the entanglement entropy — so entanglement is precisely
+what flattens the distribution that observable measures. A zero-entanglement
+product state therefore outscores a maximally entangled one at every clock
+dimension, and the exact `d = 4` ratio (`0.750 / 0.176777 = 4.24`) reproduces
+the **4.2×** that programme measured on hardware in an adversarial run.
 
-```
-This paper, at χt = π        Companion, at d = 2
-T_xx        = 0.000000       witness TVD  = 0.000000
-rho_2       = I/4 exactly    state        = Bell pair
-concurrence = 0.000000       entanglement = 1.0000 ebits
--> SEPARABLE                 -> MAXIMALLY ENTANGLED
-```
+**This repository supplies the other half of the demonstration.** At `χt = π`
+the boundary state is `I/4` — maximally mixed marginals, concurrence exactly
+zero, **separable**. The sibling's `d = 2` null has maximally mixed marginals
+too, on a Bell pair carrying **1.0 ebits**. A marginal observable reads zero on
+both; `T_xx`, a joint correlator, separates them at `0` versus `+1`. Neither
+programme could make that contrast alone.
 
-**The same observable reads exactly zero on a separable state and on a
-maximally entangled one.** That is a measurement, not an argument, and neither
-repository can make it alone. Full statement:
+Full statement, including the independent convergence with
+[arXiv:2512.09100](https://arxiv.org/abs/2512.09100):
 [`docs/COMPANION_RESULT.md`](docs/COMPANION_RESULT.md).
 
 ## The shared method
