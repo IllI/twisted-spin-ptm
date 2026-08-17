@@ -150,6 +150,51 @@ archived result JSONs record the actual device used per run (some runs executed 
 CPU). Device provenance should always be taken from the `devices` field of the
 result JSON, not the filename.
 
+## Taking the stack to real astronomy
+
+Late in the TRC allocation, the same tensor-network and state-space machinery
+was pointed at real observational data — a deliberate deviation from the grant
+proposal, to test whether the method transfers out of simulation into a working
+physics domain. Targets: TRAPPIST-1e visit-variable stellar contamination
+across four JWST/NIRSpec PRISM transits, a DREAMS per-visit Gaussian-process
+reproduction, paired TRAPPIST-1b/e transits, and the GLIMPSE-17775 spectrum.
+Full record in `docs/TRC_ASTROPHYSICS_MODELING_PROGRAM_CLOSEOUT_2026-06-21.md`.
+
+**What transferred.** The infrastructure did: JAX CPU/JIT smoke paths and
+eight-device TPU `pmap` execution, strict null suites with fail-fast verdict
+files, reproducible product ledgers with checksums, and synthetic positive
+controls gating every real-data claim. On the WASP-39b positive control the
+pipeline recovered an injected CO₂-window residual at **0.9897**, passing
+phase, wavelength, shifted-template and false-positive controls. Three clean
+public b/e pairs were assembled with verified labels and offsets, and the
+released Program 1331 spectra reproduced the *direction* of the DREAMS result
+(log-likelihood −1752.99 → −1694.46 → −1670.58 across no-GP, per-visit GP, and
+shared-spectrum-plus-per-visit-GP).
+
+**What did not.** D-LinOSS did not promote as the detector. On the same
+WASP-39b control it reached 0.9828 against a plain linear SSM at 0.9997, and
+damping ablation was negligible. MPS spectral compression materially improved
+missing-window recovery (0.4359 → 0.7462), but under the tested gates
+**MPS + linear SSM was preferred to MPS + D-LinOSS**.
+
+Two honest qualifications belong with that verdict. The first experiments ran
+at the **wrong reduction stage** — on detector-level integration flux rather
+than extracted transmission spectra — so the failed 25–500 ppm injections are
+negative results for a different objective, not limits on DREAMS sensitivity.
+And the closeout identified four concrete implementation defects in the model
+as built: wavelength bins treated as independent scalar streams, soft spectral
+windows standing in for hard temporal pole constraints, full-spectrum
+reconstruction rewarding the static baseline, and hidden state overwritten
+rather than accumulated.
+
+**This is a model-selection result, not evidence that state-space modelling is
+inappropriate for astronomy.** The methodology — residual-first targets,
+predict-before-assimilate updates, synthetic positive controls before real-data
+claims, and explicit prohibition of atmosphere or molecule claims when gates
+failed — held up. The implementation was rushed and is where the losses came
+from. Nothing here claims a TRAPPIST-1e atmosphere, methane, or a detection of
+any kind, and the closeout says so explicitly.
+
 ## Prepared but deliberately not run
 
 `hardware/ibm_run4_crossdevice.py` is a complete, dry-run-verified cross-device
