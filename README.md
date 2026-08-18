@@ -100,7 +100,7 @@ parameterization. That is what licensed trusting a single hardware run: if a
 null is that reliable in simulation, hardware reproducing the *shape* around it
 is meaningful even under device noise.
 
-## Companion result: one law, and a witness that runs backwards
+## Companion result: one budget, and what this repository contributes to it
 
 This repository and its sibling
 [relational-time-ibm-quantum](https://github.com/IllI/relational-time-ibm-quantum)
@@ -118,24 +118,41 @@ qubit states separated by Bloch angle `θ`.
 Exact, not analogical: at `d = 8` adjacent clock records overlap at `0.923880`,
 and `cos(π/4 / 2) = 0.923880`.
 
-**The consequence is sharper than a shared functional form.** The sibling's
-headline observable reads a *marginal*, and for a bipartite pure state the
-marginal entropy **is** the entanglement entropy — so entanglement is precisely
-what flattens the distribution that observable measures. A zero-entanglement
-product state therefore outscores a maximally entangled one at every clock
-dimension, and the exact `d = 4` ratio (`0.750 / 0.176777 = 4.24`) reproduces
-the **4.2×** that programme measured on hardware in an adversarial run.
+**The joint result is stronger than a shared functional form.** Every
+correlation magnitude either programme measured turns out to be drawn on **one
+conserved unit**, and that unit is spent twice over: between a subsystem's local
+coherence and its entanglement with a partner
+(Jakob–Bergou, Phys. Rev. A **68**, 022107, 2003), and between its entanglement
+with one partner and with another (Coffman–Kundu–Wootters, Phys. Rev. A **61**,
+052306, 2000). Both totals are exactly 1, and depolarizing noise never pushes
+either above it.
 
-**This repository supplies the other half of the demonstration.** At `χt = π`
-the boundary state is `I/4` — maximally mixed marginals, concurrence exactly
-zero, **separable**. The sibling's `d = 2` null has maximally mixed marginals
-too, on a Bell pair carrying **1.0 ebits**. A marginal observable reads zero on
-both; `T_xx`, a joint correlator, separates them at `0` versus `+1`. Neither
-programme could make that contrast alone.
+The consequence, which neither programme states alone: a Page–Wootters clock is
+a good clock in proportion to the entanglement it spends on its own system, so
+**no correlation magnitude can serve as a shared temporal reference between two
+good clocks.** The sibling measured both trade-offs as continuous hardware
+curves — `r = −0.9573` within a pair, `r = −0.9833` across two clocks, with both
+endpoints of the latter reaching exactly zero.
 
-Full statement, including the independent convergence with
-[arXiv:2512.09100](https://arxiv.org/abs/2512.09100):
-[`docs/COMPANION_RESULT.md`](docs/COMPANION_RESULT.md).
+**This repository's contribution to that argument is the separable state.** At
+`χt = π` the boundary state is `I/4` — maximally mixed marginals, concurrence
+exactly zero, **separable**. The sibling's `d = 2` null has maximally mixed
+marginals too, on a Bell pair carrying **1.0 ebits**. A marginal observable
+reads zero on both; `T_xx`, a joint correlator, separates them at `0` versus
+`+1`. That contrast is what makes marginal blindness concrete rather than a
+single-programme curiosity, and neither programme could make it alone.
+
+It also supplies the **first** instance of the certification wall both
+programmes hit — entanglement is not identifiable from PTM anisotropy alone —
+which is §"The shared method" below.
+
+Full statement, with the identities attributed and the scope stated as limits:
+[`docs/COMPANION_RESULT.md`](docs/COMPANION_RESULT.md). The synthesis
+repository is
+[relational-entanglement-network](https://github.com/IllI/relational-entanglement-network),
+where the argument is executable end to end and the open question — whether the
+Aharonov–Anandan geometric phase, which is *not* a magnitude, escapes the
+budget — is specified as a run.
 
 ## The shared method
 

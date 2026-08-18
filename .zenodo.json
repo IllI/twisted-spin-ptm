@@ -1,7 +1,7 @@
 {
   "title": "Hardware Recovery of the Analytic Pauli-Transfer-Matrix Structure of One-Axis-Twisting Boundary Channels",
   "upload_type": "software",
-  "description": "<p>Theory, exact simulation, pre-registration, and three runs on IBM Quantum hardware (<code>ibm_marrakesh</code>) measuring the predicted Pauli-transfer-matrix element <code>T_xx = A&middot;cos^(N-2)(&chi;t/2)</code> of the one-axis-twisting (OAT) boundary-pair channel, including its exact null at <code>&chi;t = &pi;</code>.</p><p><strong>Proved analytically</strong> from the closed-form boundary density matrix: <code>T_zz = 0</code>, <code>T_yy = 0</code>, and the <code>T_xx</code> form, with the corollary that phase-only (R<sub>z</sub>) local corrections cannot exceed the classical fidelity bound of 2/3 for any N or coupling time.</p><p><strong>Measured on hardware</strong>, across three pre-registered runs: a 12.5&sigma; signed ordering across three points (Run 1); a nine-point sweep recovering the functional form at R&sup2; = 0.986 with the internal null resolved to 0.4&sigma; using 4000 shots (Run 2); and a disjoint-layout replication at R&sup2; = 0.976 with the null at &minus;0.12&sigma; (Run 3), establishing layout independence.</p><p>Raw shot counts, readout-calibration matrices, pre-registration files, and IBM job IDs are archived for every run &mdash; the entire analysis reproduces from counts upward without IBM access.</p><p>Includes <code>docs/DISCOVERY_NARRATIVE.md</code>, a condensed narrative account of the research path that records the falsified conjectures (an X-state fidelity formula retracted after direct numerical optimization), a retracted scrambling claim traced to a truncation artifact, three wrong circuits caught in dry runs before consuming hardware time, and a deliberately descoped fourth run &mdash; alongside the results that survived.</p><p><strong>Claim boundary:</strong> this is a hardware measurement of an analytically predicted two-body observable. It is not a demonstration of quantum teleportation, a teleportation-advantage claim, or a hardware-confirmed theorem.</p><p>Simulation phase supported by Google TPU Research Cloud; hardware phase by the IBM Quantum Open Plan.</p>",
+  "description": "<p>Theory, exact simulation, pre-registration, and three runs on IBM Quantum hardware (<code>ibm_marrakesh</code>) measuring the predicted Pauli-transfer-matrix element <code>T_xx = A&middot;cos^(N-2)(&chi;t/2)</code> of the one-axis-twisting (OAT) boundary-pair channel, including its exact null at <code>&chi;t = &pi;</code>.</p><p><strong>Proved analytically</strong> from the closed-form boundary density matrix: <code>T_zz = 0</code>, <code>T_yy = 0</code>, and the <code>T_xx</code> form, with the corollary that phase-only (R<sub>z</sub>) local corrections cannot exceed the classical fidelity bound of 2/3 for any N or coupling time.</p><p><strong>Measured on hardware</strong>, across three pre-registered runs: a 12.5&sigma; signed ordering across three points (Run 1); a nine-point sweep recovering the functional form at R&sup2; = 0.986 with the internal null resolved to 0.4&sigma; using 4000 shots (Run 2); and a disjoint-layout replication at R&sup2; = 0.976 with the null at &minus;0.12&sigma; (Run 3), establishing layout independence.</p><p>Raw shot counts, readout-calibration matrices, pre-registration files, and IBM job IDs are archived for every run &mdash; the entire analysis reproduces from counts upward without IBM access.</p><p>Includes <code>docs/DISCOVERY_NARRATIVE.md</code>, a condensed narrative account of the research path that records the falsified conjectures (an X-state fidelity formula retracted after direct numerical optimization), a retracted scrambling claim traced to a truncation artifact, three wrong circuits caught in dry runs before consuming hardware time, and a deliberately descoped fourth run &mdash; alongside the results that survived.</p><p><strong>Claim boundary:</strong> this is a hardware measurement of an analytically predicted two-body observable. It is not a demonstration of quantum teleportation, a teleportation-advantage claim, or a hardware-confirmed theorem.</p><p>Simulation phase supported by Google TPU Research Cloud; hardware phase by the IBM Quantum Open Plan.</p><p><strong>Companion result: one budget.</strong> This repository and its sibling (relational-time-ibm-quantum) ran as independent programmes and measure the same law -- coherence surviving as a product of half-angle state overlaps, one factor per party that has acquired distinguishing information -- here against COUPLING ANGLE, there against TIME. Placed together, every correlation magnitude either programme measured turns out to be drawn on one conserved unit, spent twice over: between a subsystem's local coherence and its entanglement with a partner (Jakob-Bergou complementarity, Phys. Rev. A 68, 022107, 2003), and between its entanglement with one partner and with another (Coffman-Kundu-Wootters monogamy, Phys. Rev. A 61, 052306, 2000). Both totals are exactly 1 and depolarizing noise never pushes either above it. The consequence, which neither programme states alone: a Page-Wootters clock is a good clock in proportion to the entanglement it spends on its own system, so no correlation magnitude can serve as a shared temporal reference between two good clocks. The sibling measured both trade-offs as continuous hardware curves (r = -0.9573 within a pair; r = -0.9833 across two clocks, both endpoints reaching exactly zero). THIS repository's contribution to that argument is the separable state: at chi_t = pi the boundary state is I/4 -- maximally mixed marginals, concurrence exactly zero, SEPARABLE -- to pair against the sibling's maximally entangled d=2 null, which also has maximally mixed marginals. A marginal observable reads zero on both while the joint correlator T_xx separates them at 0 versus +1. Neither programme could make that contrast alone. This repository also supplies the first instance of the certification wall both programmes hit: entanglement is not identifiable from PTM anisotropy alone, resolved by V_Q over Haar-random settings. The identities are standard and attributed as such; the measured curves are the contribution.</p>",
   "creators": [
     {
       "name": "O'Neill, Kevin"
@@ -9,7 +9,7 @@
   ],
   "license": "mit",
   "access_right": "open",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "language": "eng",
   "keywords": [
     "quantum information",
@@ -26,7 +26,10 @@
     "reproducibility",
     "state-space models",
     "D-LinOSS",
-    "TPU"
+    "TPU",
+    "complementarity",
+    "monogamy of entanglement",
+    "relational time"
   ],
   "related_identifiers": [
     {
@@ -52,6 +55,18 @@
       "relation": "cites",
       "resource_type": "publication-article",
       "scheme": "doi"
+    },
+    {
+      "identifier": "10.1103/PhysRevA.68.022107",
+      "relation": "cites",
+      "scheme": "doi",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "10.1103/PhysRevA.61.052306",
+      "relation": "cites",
+      "scheme": "doi",
+      "resource_type": "publication-article"
     }
   ],
   "notes": "Simulation phase (exact boundary-state core, MPS automaton to N >= 64, Lindblad dephasing sweeps, and the recovery-geometry search) supported by Google TPU Research Cloud, grant window 2026-04-21 to 2026-06-21, extended one month. Hardware phase used the IBM Quantum Open Plan and no TRC resources. The views expressed are those of the author and do not reflect the official policy or position of IBM, the IBM Quantum team, or Google."
